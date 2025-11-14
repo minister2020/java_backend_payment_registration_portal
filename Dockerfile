@@ -1,7 +1,7 @@
 # Stage 1: Build with Maven + Temurin JDK 21
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
-COPY . .
+COPY src/main/java/com/example/AdvancedUser .
 RUN mvn -B clean package -DskipTests
 
 # Stage 2: Run with lightweight JRE 21
