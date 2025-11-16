@@ -1,13 +1,22 @@
-# Stage 1: Build with Maven + Temurin JDK 21
-FROM maven:3.9.6-eclipse-temurin-21 AS builder
+# Importing JDK and copying required files
+FROM openjdk:8u252 AS build
 WORKDIR /app
-COPY src/main/java/com/example/AdvancedUser .
-RUN mvn -B clean package -DskipTests
+COPY pom.xml .
+COPY src src
 
-# Stage 2: Run with lightweight JRE 21
-FROM eclipse-temurin:21-jre-alpine
-WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+# Copy Maven wrapper
+COPY mvnw .
+COPY .mvn .mvn
 
+# Set execution permission for the Maven wrapper
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package
+
+# Stage 2: Create the final Docker image using OpenJDK 19
+FROM openjdk:8u252
+VOLUME /tmp
+
+# Copy the JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=docker","/app.jar"]
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
