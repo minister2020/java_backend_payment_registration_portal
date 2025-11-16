@@ -1,4 +1,4 @@
-package com.example.AdvancedUser.dto;
+package com.example.AdvancedUser.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

@@ -2,7 +2,7 @@ package com.example.AdvancedUser.service;
 
 import com.example.AdvancedUser.dto.LoginRequest;
 import com.example.AdvancedUser.dto.LoginResponse;
-import com.example.AdvancedUser.dto.User;
+import com.example.AdvancedUser.model.User;
 import com.example.AdvancedUser.repository.UserRepository;
 import com.example.AdvancedUser.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;

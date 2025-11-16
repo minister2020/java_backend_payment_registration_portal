@@ -1,6 +1,6 @@
 package com.example.AdvancedUser.config;
 
-import com.example.AdvancedUser.dto.User;
+import com.example.AdvancedUser.model.User;
 import com.example.AdvancedUser.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
