@@ -1,22 +1,21 @@
-# Importing JDK and copying required files
-FROM openjdk:8u252 AS build
+# ====== STAGE 1: BUILD WITH JAVA 17 ======
+FROM eclipse-temurin:17-jdk AS build
 WORKDIR /app
-COPY pom.xml .
-COPY src src
 
-# Copy Maven wrapper
+COPY pom.xml .
 COPY mvnw .
 COPY .mvn .mvn
+COPY src src
 
-# Set execution permission for the Maven wrapper
-RUN chmod +x ./mvnw
-RUN ./mvnw clean package
+RUN chmod +x mvnw
+RUN ./mvnw clean package -DskipTests
 
-# Stage 2: Create the final Docker image using OpenJDK 19
-FROM openjdk:8u252
-VOLUME /tmp
+# ====== STAGE 2: RUN WITH JAVA 17 ======
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
 
-# Copy the JAR from the build stage
 COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","-Dspring.profiles.active=docker","/app.jar"]
+
 EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
