@@ -20,7 +20,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -76,8 +78,11 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // ✅ Exact frontend URL
-        configuration.setAllowedOrigins(List.of("https://payment-registration-portal.netlify.app"));
-
+        configuration.setAllowedOrigins(List.of(
+                "https://6919e8d69118b700088bc743--payment-portal-frontend.netlify.app",
+                "https://payment-registration-portal.netlify.app",
+                "http://localhost:3000"
+        ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
