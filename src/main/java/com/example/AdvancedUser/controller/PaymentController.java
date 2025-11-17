@@ -50,6 +50,13 @@ public class PaymentController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PostMapping("/payment/callback")
+    public ResponseEntity<String> handlePaystackCallback(@RequestBody Map<String, Object> payload) {
+        System.out.println("PAYSTACK CALLBACK ===> " + payload);
+        // verify payment & update DB
+        return ResponseEntity.ok("Callback received");
+    }
+
 }
 
 
