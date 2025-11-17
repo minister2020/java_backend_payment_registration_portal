@@ -33,7 +33,7 @@ public class PaymentService {
     @Autowired
     private SettlementService settlementService;
 
-    @Value("${paystack.callback.url:http://localhost:3000/payment/callback}")
+    @Value("${paystack.base.url}")
     private String callbackUrl;
 
     @Value("${paystack.enable.auto.settlement:false}")
