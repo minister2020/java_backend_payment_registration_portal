@@ -4,11 +4,13 @@ import com.example.AdvancedUser.dto.PaymentRequest;
 import com.example.AdvancedUser.dto.PaystackInitializeResponse;
 import com.example.AdvancedUser.model.Payment;
 import com.example.AdvancedUser.service.PaymentService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -50,11 +52,30 @@ public class PaymentController {
             return ResponseEntity.notFound().build();
         }
     }
+//    @PostMapping("/payment/callback")
+//    public ResponseEntity<String> handlePaystackCallback(@RequestBody Map<String, Object> payload) {
+//        System.out.println("PAYSTACK CALLBACK ===> " + payload);
+//        // verify payment & update DB
+//        return ResponseEntity.ok("Callback received");
+//    }
+
     @PostMapping("/payment/callback")
-    public ResponseEntity<String> handlePaystackCallback(@RequestBody Map<String, Object> payload) {
+    public void handlePaystackCallback(@RequestBody Map<String, Object> payload,
+                                       HttpServletResponse response) throws IOException {
         System.out.println("PAYSTACK CALLBACK ===> " + payload);
-        // verify payment & update DB
-        return ResponseEntity.ok("Callback received");
+
+        // Verify payment using your service (call Paystack API if needed)
+        boolean verified = paymentService.verifyPayment(payload);
+
+        // Update DB or mark user as paid if verified
+        if (verified) {
+            System.out.println("Payment verified successfully!");
+        } else {
+            System.out.println("Payment verification failed!");
+        }
+
+        // Redirect user to frontend success page
+        response.sendRedirect("https://691b73a5debe6b0008a65723--payment-portal-frontend.netlify.app/payment/callback");
     }
 
 }
