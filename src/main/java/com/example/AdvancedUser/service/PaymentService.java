@@ -1,6 +1,5 @@
 package com.example.AdvancedUser.service;
 
-import com.example.AdvancedUser.config.PaystackConfig;
 import com.example.AdvancedUser.dto.PaymentRequest;
 import com.example.AdvancedUser.dto.PaystackInitializeRequest;
 import com.example.AdvancedUser.dto.PaystackInitializeResponse;
@@ -11,10 +10,8 @@ import com.example.AdvancedUser.repository.PaymentRepository;
 import com.example.AdvancedUser.repository.ZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,20 +20,6 @@ import java.util.UUID;
 @Service
 @Transactional
 public class PaymentService {
-
-    @Value("${paystack.secret.key}")
-    private String secretKey;
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
-    }
-    @Autowired
-    private PaystackConfig paystackConfig;
-
 
     @Autowired
     private PaymentRepository paymentRepository;
@@ -50,7 +33,7 @@ public class PaymentService {
     @Autowired
     private SettlementService settlementService;
 
-    @Value("${paystack.callback.url}")
+    @Value("${paystack.callback.url:https://691b73a5debe6b0008a65723--payment-portal-frontend.netlify.app/payment/callback}")
     private String callbackUrl;
 
     @Value("${paystack.enable.auto.settlement:false}")
@@ -129,38 +112,6 @@ public class PaymentService {
         return paymentRepository.findByPaystackReference(reference)
                 .orElseThrow(() -> new RuntimeException("Payment not found"));
     }
-
-    public boolean verifyPayment(Map<String, Object> payload) {
-        try {
-            // Get payment reference from callback payload
-            Map<String, Object> data = (Map<String, Object>) payload.get("data");
-            String reference = (String) data.get("reference");
-
-            // Verify payment with Paystack API
-            RestTemplate restTemplate = new RestTemplate();
-            String url = "https://api.paystack.co/transaction/verify/" + reference;
-
-            org.springframework.http.HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + paystackConfig.getSecretKey());
-            headers.setContentType(MediaType.APPLICATION_JSON);
-
-            HttpEntity<String> entity = new HttpEntity<>(headers);
-
-            ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, entity, Map.class);
-
-            Map<String, Object> responseBody = response.getBody();
-            if (responseBody != null && Boolean.TRUE.equals(responseBody.get("status"))) {
-                Map<String, Object> paymentData = (Map<String, Object>) responseBody.get("data");
-                String status = (String) paymentData.get("status");
-                return "success".equalsIgnoreCase(status);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
 }
 
 
