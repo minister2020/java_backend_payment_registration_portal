@@ -54,7 +54,7 @@ public class RegistrationService {
 
         // Create registration
         Registrations registration = new Registrations();
-        registration.setFirstTimeAttendingCamp(registration.getFirstTimeAttendingCamp());
+        registration.setFirstTimeAttendingCamp(request.getFirstTimeAttendingCamp());
         registration.setChildName(request.getChildName());
         registration.setAge(request.getAge());
         registration.setLocation(request.getLocation());
