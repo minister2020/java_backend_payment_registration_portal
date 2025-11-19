@@ -4,15 +4,12 @@ import com.example.AdvancedUser.dto.PaymentRequest;
 import com.example.AdvancedUser.dto.PaystackInitializeResponse;
 import com.example.AdvancedUser.model.Payment;
 import com.example.AdvancedUser.service.PaymentService;
-import jakarta.servlet.http.HttpServletResponse;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.URI;
 import java.util.Map;
 
 @RestController
@@ -32,7 +29,6 @@ public class PaymentController {
             return ResponseEntity.badRequest().build();
         }
     }
-
     @GetMapping("/verify/{reference}")
     public ResponseEntity<?> verifyPayment(@PathVariable String reference) {
         try {
@@ -44,11 +40,20 @@ public class PaymentController {
             return ResponseEntity.status(500).body(Map.of("message", "An error occurred while verifying payment", "status", "error"));
         }
     }
-
     @GetMapping("/{reference}")
     public ResponseEntity<Payment> getPayment(@PathVariable String reference) {
         try {
             Payment payment = paymentService.getPaymentByReference(reference);
+            return ResponseEntity.ok(payment);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/validate/{reference}")
+    public ResponseEntity<?> validateReference(@PathVariable String reference) {
+
+        try {
+            ResponseEntity<String> payment = paymentService.findByPaystackReference(reference);
             return ResponseEntity.ok(payment);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

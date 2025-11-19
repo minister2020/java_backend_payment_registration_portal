@@ -4,6 +4,7 @@ import com.example.AdvancedUser.model.Registrations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
-
+    @Async
     public void sendRegistrationConfirmationEmail(String email, List<Registrations> registrations) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();

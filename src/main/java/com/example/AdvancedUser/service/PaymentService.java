@@ -5,15 +5,19 @@ import com.example.AdvancedUser.dto.PaystackInitializeRequest;
 import com.example.AdvancedUser.dto.PaystackInitializeResponse;
 import com.example.AdvancedUser.model.Payment;
 import com.example.AdvancedUser.model.PaymentStatus;
+import com.example.AdvancedUser.model.Registrations;
 import com.example.AdvancedUser.model.Zone;
 import com.example.AdvancedUser.repository.PaymentRepository;
+import com.example.AdvancedUser.repository.RegistrationRepository;
 import com.example.AdvancedUser.repository.ZoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -32,6 +36,10 @@ public class PaymentService {
 
     @Autowired
     private SettlementService settlementService;
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
+
 
     @Value("${paystack.callback.url:https://691b73a5debe6b0008a65723--payment-portal-frontend.netlify.app/payment/callback}")
     private String callbackUrl;
@@ -112,7 +120,24 @@ public class PaymentService {
         return paymentRepository.findByPaystackReference(reference)
                 .orElseThrow(() -> new RuntimeException("Payment not found"));
     }
+
+    public ResponseEntity<String> findByPaystackReference(String reference) {
+        Payment payment = paymentRepository.findByPaystackReference(reference)
+                .orElse(null);
+        if (payment == null)
+            return ResponseEntity.badRequest().body("Invalid payment reference");
+
+        if (payment.getStatus() != PaymentStatus.SUCCESS)
+            return ResponseEntity.badRequest().body("Payment not confirmed");
+
+        List<Registrations> existingRegs = registrationRepository.findByPaymentId(payment.getId());
+        if (existingRegs.size() >= payment.getNumberOfRegistrants())
+            return ResponseEntity.badRequest().body("Invalid or already used payment reference");
+
+        return ResponseEntity.ok("valid");
+    }
 }
+
 
 
 

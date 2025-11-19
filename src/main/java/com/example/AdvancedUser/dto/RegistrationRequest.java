@@ -16,7 +16,7 @@ public class RegistrationRequest {
     private Integer age;
 
     @NotBlank
-    private String location;
+    private String tcCenter;
 
     @NotNull
     private Long zoneId;
@@ -35,6 +35,16 @@ public class RegistrationRequest {
 
     @NotNull
     private String paymentReference;
+    private boolean consentGiven;
+
+    public boolean isConsentGiven() {
+        return consentGiven;
+    }
+
+    public void setConsentGiven(boolean consentGiven) {
+        this.consentGiven = consentGiven;
+    }
+
     public RegistrationRequest() {
     }
 
@@ -63,12 +73,12 @@ public class RegistrationRequest {
         this.age = age;
     }
 
-    public String getLocation() {
-        return location;
+    public String getTcCenter() {
+        return tcCenter;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setTcCenter(String tcCenter) {
+        this.tcCenter = tcCenter;
     }
 
     public Long getZoneId() {

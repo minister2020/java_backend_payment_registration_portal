@@ -57,7 +57,7 @@ public class RegistrationService {
         registration.setFirstTimeAttendingCamp(request.getFirstTimeAttendingCamp());
         registration.setChildName(request.getChildName());
         registration.setAge(request.getAge());
-        registration.setLocation(request.getLocation());
+        registration.setLocation(request.getTcCenter());
         registration.setZone(zone);
         registration.setAddress(request.getAddress());
         registration.setParentName(request.getParentName());
