@@ -57,7 +57,7 @@ public class RegistrationService {
         registration.setFirstTimeAttendingCamp(request.getFirstTimeAttendingCamp());
         registration.setChildName(request.getChildName());
         registration.setAge(request.getAge());
-        registration.setLocation(request.getTcCenter());
+        registration.setTcCenter(request.getTcCenter());
         registration.setZone(zone);
         registration.setAddress(request.getAddress());
         registration.setParentName(request.getParentName());
@@ -114,7 +114,7 @@ public class RegistrationService {
         response.setFirstTimeAttendingCamp(registration.getFirstTimeAttendingCamp());
         response.setChildName(registration.getChildName());
         response.setAge(registration.getAge());
-        response.setLocation(registration.getLocation());
+        response.setTcCenter(registration.getTcCenter());
         response.setZoneName(registration.getZone().getName());
         response.setZoneId(registration.getZone().getId());
         response.setAddress(registration.getAddress());

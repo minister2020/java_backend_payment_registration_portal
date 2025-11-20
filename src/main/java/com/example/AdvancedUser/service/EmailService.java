@@ -32,7 +32,7 @@ public class EmailService {
                 body.append("Registrant ").append(i + 1).append(":\n");
                 body.append("Child Name: ").append(reg.getChildName()).append("\n");
                 body.append("Age: ").append(reg.getAge()).append("\n");
-                body.append("Location: ").append(reg.getLocation()).append("\n");
+                body.append("Location: ").append(reg.getTcCenter()).append("\n");
                 body.append("Zone: ").append(reg.getZone().getName()).append("\n");
                 body.append("Address: ").append(reg.getAddress()).append("\n");
                 body.append("Parent Name: ").append(reg.getParentName()).append("\n");

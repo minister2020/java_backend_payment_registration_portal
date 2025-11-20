@@ -25,7 +25,7 @@ public class Registrations {
     private Integer age;
 
     @NotBlank
-    private String location;
+    private String tcCenter;
 
     @ManyToOne
     @JoinColumn(name = "zone_id")
@@ -95,12 +95,12 @@ public class Registrations {
         this.age = age;
     }
 
-    public String getLocation() {
-        return location;
+    public String getTcCenter() {
+        return tcCenter;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setTcCenter(String tcCenter) {
+        this.tcCenter = tcCenter;
     }
 
     public Zone getZone() {

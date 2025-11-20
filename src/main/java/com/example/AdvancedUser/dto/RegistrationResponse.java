@@ -9,7 +9,7 @@ public class RegistrationResponse {
     private String firstTimeAttendingCamp;
     private String childName;
     private Integer age;
-    private String location;
+    private String tcCenter;
     private String zoneName;
     private Long zoneId;
     private String address;
@@ -61,12 +61,12 @@ public class RegistrationResponse {
         this.age = age;
     }
 
-    public String getLocation() {
-        return location;
+    public String getTcCenter() {
+        return tcCenter;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setTcCenter(String tcCenter) {
+        this.tcCenter = tcCenter;
     }
 
     public String getZoneName() {
