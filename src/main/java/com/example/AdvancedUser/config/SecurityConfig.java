@@ -77,8 +77,8 @@ public class SecurityConfig {
 
         // ✅ Exact frontend URL
         configuration.setAllowedOrigins(List.of(
-//                "https://payment-portal-frontend.netlify.app/",
-//                "https://payment-registration-portal.netlify.app",
+                "https://payment-portal-frontend.netlify.app/",
+                "https://payment-registration-portal.netlify.app",
                 "http://localhost:3000"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
