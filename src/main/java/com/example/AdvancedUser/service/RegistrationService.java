@@ -111,7 +111,7 @@ public class RegistrationService {
     private RegistrationResponse convertToResponse(Registrations registration) {
         RegistrationResponse response = new RegistrationResponse();
         response.setId(registration.getId());
-        response.setFirstTimeAttendingCamp(response.getFirstTimeAttendingCamp());
+        response.setFirstTimeAttendingCamp(registration.getFirstTimeAttendingCamp());
         response.setChildName(registration.getChildName());
         response.setAge(registration.getAge());
         response.setLocation(registration.getLocation());
