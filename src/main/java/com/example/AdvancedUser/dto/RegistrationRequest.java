@@ -9,6 +9,8 @@ public class RegistrationRequest {
     @NotBlank
     private String firstTimeAttendingCamp;
     @NotBlank
+    private String registrationType;
+    @NotBlank
     private String childName;
 
     @NotNull
@@ -56,7 +58,14 @@ public class RegistrationRequest {
         this.firstTimeAttendingCamp = firstTimeAttendingCamp;
     }
 
-    // Getters and Setters
+    public String getRegistrationType() {
+        return registrationType;
+    }
+
+    public void setRegistrationType(String registrationType) {
+        this.registrationType = registrationType;
+    }
+
     public String getChildName() {
         return childName;
     }

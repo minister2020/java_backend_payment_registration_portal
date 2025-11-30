@@ -55,6 +55,7 @@ public class RegistrationService {
         // Create registration
         Registrations registration = new Registrations();
         registration.setFirstTimeAttendingCamp(request.getFirstTimeAttendingCamp());
+        registration.setRegistrationType(request.getRegistrationType());
         registration.setChildName(request.getChildName());
         registration.setAge(request.getAge());
         registration.setTcCenter(request.getTcCenter());
@@ -112,6 +113,7 @@ public class RegistrationService {
         RegistrationResponse response = new RegistrationResponse();
         response.setId(registration.getId());
         response.setFirstTimeAttendingCamp(registration.getFirstTimeAttendingCamp());
+        response.setRegistrationType(registration.getRegistrationType());
         response.setChildName(registration.getChildName());
         response.setAge(registration.getAge());
         response.setTcCenter(registration.getTcCenter());

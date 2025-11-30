@@ -15,6 +15,8 @@ public class Registrations {
     private Long id;
     @NotBlank
     private String firstTimeAttendingCamp;
+    @Column(name = "registration_type", nullable = false)
+    private String registrationType;
 
     @NotBlank
     @Column(name = "child_name")
@@ -73,6 +75,14 @@ public class Registrations {
 
     public void setFirstTimeAttendingCamp(String firstTimeAttendingCamp) {
         this.firstTimeAttendingCamp = firstTimeAttendingCamp;
+    }
+
+    public String getRegistrationType() {
+        return registrationType;
+    }
+
+    public void setRegistrationType(String registrationType) {
+        this.registrationType = registrationType;
     }
 
     public void setId(Long id) {

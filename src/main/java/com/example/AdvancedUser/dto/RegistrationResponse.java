@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class RegistrationResponse {
     private Long id;
     private String firstTimeAttendingCamp;
+    private String registrationType;
     private String childName;
     private Integer age;
     private String tcCenter;
@@ -35,6 +36,14 @@ public class RegistrationResponse {
 
     public void setFirstTimeAttendingCamp(String firstTimeAttendingCamp) {
         this.firstTimeAttendingCamp = firstTimeAttendingCamp;
+    }
+
+    public String getRegistrationType() {
+        return registrationType;
+    }
+
+    public void setRegistrationType(String registrationType) {
+        this.registrationType = registrationType;
     }
 
     public Long getId() {
